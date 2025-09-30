@@ -29,7 +29,7 @@ const inputSX = {
 
 const ListaAprendices = () => {
   //const API_BASE = "http://localhost:8080/api/v1/aprendiz";
-  const API_BASE = "https://apirest-java-production.up.railway.app/api/v1/aprendiz"
+  const API_BASE = "https://backadso-production-013e.up.railway.app/api/v1/aprendiz"
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
