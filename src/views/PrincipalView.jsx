@@ -27,13 +27,13 @@ const inputSX = {
   "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "#22d3ee" }
 };
 
-const ListaAprendices = () => {
+const ListaProductos = () => {
   //const API_BASE = "http://localhost:8080/api/v1/aprendiz";
-  const API_BASE = "https://backadso-production-013e.up.railway.app/api/v1/aprendiz"
+  const API_BASE = "https://inventario-java-production.up.railway.app/api/v1/productos"
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ nombre: "", apellido: "", email: "", telefono: "", direccion: "" });
+  const [form, setForm] = useState({ nombre: "", descripcion: "", cantidad: 0, precio: 0.0, categoria: "", fecha_ingreso: "" });
   const [idFiltro, setIdFiltro] = useState("");
 
   const fetchTodos = async () => {
@@ -42,7 +42,7 @@ const ListaAprendices = () => {
       const res = await axios.get(API_BASE);
       setData(res.data || []);
     } catch (e) {
-      console.error("Error cargando aprendices:", e);
+      console.error("Error cargando productos:", e);
       setData([]);
     } finally { setLoading(false); }
   };
@@ -56,20 +56,20 @@ const ListaAprendices = () => {
     } catch { setData([]); } finally { setLoading(false); }
   };
 
-  const crearAprendiz = async () => {
+  const crearProducto = async () => {
     try {
       setLoading(true);
       await axios.post(API_BASE, form, { headers: { "Content-Type": "application/json" } });
       setForm({ nombre: "", apellido: "", email: "", telefono: "", direccion: "" });
       await fetchTodos();
-    } catch (e) { console.error("Error creando aprendiz:", e); }
+    } catch (e) { console.error("Error creando producto:", e); }
     finally { setLoading(false); }
   };
 
   const eliminarPorId = async () => {
     if (!idFiltro) return;
     try { setLoading(true); await axios.delete(`${API_BASE}/${idFiltro}`); await fetchTodos(); }
-    catch (e) { console.error("Error eliminando aprendiz:", e); }
+    catch (e) { console.error("Error eliminando producto:", e); }
     finally { setLoading(false); }
   };
 
@@ -80,7 +80,7 @@ const ListaAprendices = () => {
         {/* Barra de acciones */}
         <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
           <Typography variant="h5" sx={{ flex: 1, fontWeight: 700, color: "text.primary" }}>
-            Aprendices
+            Productos
           </Typography>
           <Button variant="contained" color="primary" onClick={fetchTodos} disabled={loading}>
             {loading ? "Cargando..." : "VER TODOS"}
@@ -99,19 +99,22 @@ const ListaAprendices = () => {
 
         {/* Formulario creación */}
         <Paper elevation={4} sx={{ p: 2, mb: 3, border: "1px solid #334155", bgcolor: "background.paper" }}>
-          <Typography sx={{ mb: 2, fontWeight: 600, color: "text.primary" }}>Crear aprendiz</Typography>
+          <Typography sx={{ mb: 2, fontWeight: 600, color: "text.primary" }}>Crear producto</Typography>
           <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
             <TextField label="Nombre" value={form.nombre}
               onChange={(e) => setForm({ ...form, nombre: e.target.value })} sx={{ ...inputSX, flex: 1 }} />
-            <TextField label="Apellido" value={form.apellido}
-              onChange={(e) => setForm({ ...form, apellido: e.target.value })} sx={{ ...inputSX, flex: 1 }} />
-            <TextField label="Email" value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })} sx={{ ...inputSX, flex: 1.2 }} />
-            <TextField label="Teléfono" value={form.telefono}
-              onChange={(e) => setForm({ ...form, telefono: e.target.value })} sx={{ ...inputSX, flex: 1 }} />
-            <TextField label="Dirección" value={form.direccion}
-              onChange={(e) => setForm({ ...form, direccion: e.target.value })} sx={{ ...inputSX, flex: 1.6 }} />
-            <Button variant="contained" color="primary" onClick={crearAprendiz} disabled={loading}>
+            <TextField label="Descripción" value={form.descripcion}
+              onChange={(e) => setForm({ ...form, descripcion: e.target.value })} sx={{ ...inputSX, flex: 1 }} />
+            <TextField label="Cantidad" type="number" value={form.cantidad}
+              onChange={(e) => setForm({ ...form, cantidad: parseInt(e.target.value) || 0 })} sx={{ ...inputSX, flex: 1 }} />
+            <TextField label="Precio" type="number" step="0.01" value={form.precio}
+              onChange={(e) => setForm({ ...form, precio: parseFloat(e.target.value) || 0.0 })} sx={{ ...inputSX, flex: 1 }} />
+            <TextField label="Categoría" value={form.categoria}
+              onChange={(e) => setForm({ ...form, categoria: e.target.value })} sx={{ ...inputSX, flex: 1 }} />
+            <TextField label="Fecha Ingreso" type="date" value={form.fecha_ingreso}
+              onChange={(e) => setForm({ ...form, fecha_ingreso: e.target.value })} sx={{ ...inputSX, flex: 1 }}
+              InputLabelProps={{ shrink: true }} />
+            <Button variant="contained" color="primary" onClick={crearProducto} disabled={loading}>
               CREAR
             </Button>
           </Stack>
@@ -122,7 +125,7 @@ const ListaAprendices = () => {
           <Table>
             <TableHead>
               <TableRow sx={{ background: "#22d3ee" }}>
-                {["ID","Nombre","Apellido","Email","Teléfono","Dirección"].map((h) => (
+                {["ID","Nombre","Descripción","Cantidad","Precio","Categoría","Fecha Ingreso"].map((h) => (
                   <TableCell key={h} sx={{ color: "#0b1220", fontWeight: 700 }}>{h}</TableCell>
                 ))}
               </TableRow>
@@ -138,15 +141,16 @@ const ListaAprendices = () => {
                 >
                   <TableCell sx={{ color: "text.primary" }}>{row.id}</TableCell>
                   <TableCell sx={{ color: "text.primary" }}>{row.nombre}</TableCell>
-                  <TableCell sx={{ color: "text.primary" }}>{row.apellido}</TableCell>
-                  <TableCell sx={{ color: "text.primary" }}>{row.email}</TableCell>
-                  <TableCell sx={{ color: "text.primary" }}>{row.telefono}</TableCell>
-                  <TableCell sx={{ color: "text.primary" }}>{row.direccion}</TableCell>
+                  <TableCell sx={{ color: "text.primary" }}>{row.descripcion}</TableCell>
+                  <TableCell sx={{ color: "text.primary" }}>{row.cantidad}</TableCell>
+                  <TableCell sx={{ color: "text.primary" }}>{row.precio}</TableCell>
+                  <TableCell sx={{ color: "text.primary" }}>{row.categoria}</TableCell>
+                  <TableCell sx={{ color: "text.primary" }}>{row.fecha_ingreso}</TableCell>
                 </TableRow>
               ))}
               {data.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={6} align="center" sx={{ color: "text.secondary" }}>
+                  <TableCell colSpan={7} align="center" sx={{ color: "text.secondary" }}>
                     Sin registros
                   </TableCell>
                 </TableRow>
@@ -159,4 +163,4 @@ const ListaAprendices = () => {
   );
 };
 
-export default ListaAprendices;
+export default ListaProductos;
