@@ -1,0 +1,175 @@
+{
+  "finca": [
+    {
+      "id_finca": 1,
+      "nombre_finca": "Finca El Sol",
+      "ubicacion": "Valle de los Andes",
+      "propietario": "Juan Pérez",
+      "superficie": "150ha",
+      "cosecha_principal": "Arroz",
+      "anio_fundacion": 1998,
+      "telefono": "+56 9 1234 5678",
+      "email": "elsol@finca.com"
+    },
+    {
+      "id_finca": 2,
+      "nombre_finca": "Finca La Luna",
+      "ubicacion": "Zona Central",
+      "propietario": "Ana Martínez",
+      "superficie": "80ha",
+      "cosecha_principal": "Maíz",
+      "anio_fundacion": 2005,
+      "telefono": "+56 9 2345 6789",
+      "email": "laluna@finca.com"
+    },
+    {
+      "id_finca": 3,
+      "nombre_finca": "Finca El Bosque",
+      "ubicacion": "Región del Sur",
+      "propietario": "Carlos Ramírez",
+      "superficie": "120ha",
+      "cosecha_principal": "Frutales",
+      "anio_fundacion": 2010,
+      "telefono": "+56 9 3456 7890",
+      "email": "elbosque@finca.com"
+    }
+  ],
+  "parcela": [
+    {
+      "id_parcela": 1,
+      "id_finca": 1,
+      "latitud": "19.432608",
+      "longitud": "-99.133209",
+      "tamano": "100ha",
+      "tipo": "Arroz",
+      "cultivo": "Arroz",
+      "irrigacion": "Riego por goteo",
+      "altitud": "500m",
+      "fecha_plantacion": "2023-01-10"
+    },
+    {
+      "id_parcela": 2,
+      "id_finca": 2,
+      "latitud": "19.352608",
+      "longitud": "-99.142209",
+      "tamano": "50ha",
+      "tipo": "Maíz",
+      "cultivo": "Maíz",
+      "irrigacion": "Riego por aspersión",
+      "altitud": "600m",
+      "fecha_plantacion": "2023-02-15"
+    },
+    {
+      "id_parcela": 3,
+      "id_finca": 3,
+      "latitud": "40.712776",
+      "longitud": "-74.005974",
+      "tamano": "70ha",
+      "tipo": "Frutales",
+      "cultivo": "Cítricos",
+      "irrigacion": "Riego por surcos",
+      "altitud": "200m",
+      "fecha_plantacion": "2023-03-01"
+    }
+  ],
+  "actividad": [
+    {
+      "id_actividad": 1,
+      "id_parcela": 1,
+      "fecha": "2023-01-01",
+      "tipo_actividad": "Siembra",
+      "insumos_utilizados": "Fertilizantes, Semillas",
+      "duracion": "8 horas",
+      "responsable": "Luis González",
+      "comentarios": "Siembra de arroz con riego controlado."
+    },
+    {
+      "id_actividad": 2,
+      "id_parcela": 2,
+      "fecha": "2023-02-01",
+      "tipo_actividad": "Cosecha",
+      "insumos_utilizados": "Cosechadora",
+      "duracion": "10 horas",
+      "responsable": "María López",
+      "comentarios": "Cosecha de maíz con maquinaria moderna."
+    },
+    {
+      "id_actividad": 3,
+      "id_parcela": 3,
+      "fecha": "2023-03-15",
+      "tipo_actividad": "Poda",
+      "insumos_utilizados": "Tijeras de podar, Motosierra",
+      "duracion": "6 horas",
+      "responsable": "Carlos Ramírez",
+      "comentarios": "Poda de árboles frutales para mejorar la producción."
+    }
+  ],
+  "insumo": [
+    {
+      "id_insumo": 1,
+      "nombre_insumo": "Fertilizante A",
+      "tipo_insumo": "Fertilizante",
+      "descripcion": "Fertilizante de alta calidad",
+      "precio_unitario": 25,
+      "unidad": "kg",
+      "proveedor": "Agroquímicos S.A.",
+      "cantidad_disponible": 500
+    },
+    {
+      "id_insumo": 2,
+      "nombre_insumo": "Semillas de Maíz",
+      "tipo_insumo": "Semillas",
+      "descripcion": "Semillas para cultivo de maíz",
+      "precio_unitario": 5,
+      "unidad": "kg",
+      "proveedor": "Semillas del Valle",
+      "cantidad_disponible": 1000
+    },
+    {
+      "id_insumo": 3,
+      "nombre_insumo": "Cosechadora",
+      "tipo_insumo": "Maquinaria",
+      "descripcion": "Cosechadora de maíz de última generación",
+      "precio_unitario": 20000,
+      "unidad": "unidad",
+      "proveedor": "Maquinaria Agrícola Ltda.",
+      "cantidad_disponible": 3
+    },
+    {
+      "id_insumo": 4,
+      "nombre_insumo": "Fertilizante B",
+      "tipo_insumo": "Fertilizante",
+      "descripcion": "Fertilizante de liberación controlada",
+      "precio_unitario": 30,
+      "unidad": "kg",
+      "proveedor": "Agroquímicos S.A.",
+      "cantidad_disponible": 600
+    }
+  ],
+  "uso_insumo": [
+    {
+      "is_uso": 1,
+      "id_actividad": 1,
+      "id_insumo": 1,
+      "cantidad": 100
+    },
+    {
+      "is_uso": 2,
+      "id_actividad": 2,
+      "id_insumo": 2,
+      "cantidad": 200
+    },
+    {
+      "is_uso": 3,
+      "id_actividad": 3,
+      "id_insumo": 3,
+      "cantidad": 1
+    },
+    {
+      "is_uso": 4,
+      "id_actividad": 1,
+      "id_insumo": 4,
+      "cantidad": 50
+    }
+  ]
+}
